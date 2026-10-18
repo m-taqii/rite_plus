@@ -113,7 +113,11 @@ async function registerStaff(req: Request, res: Response){
             return res.status(500).json({ success: false, message: "Failed to register staff user" });
         }
 
-        const token = jwt.sign({ id: result.id }, process.env.JWT_SECRET!, { expiresIn: "1d" });
+        const token = jwt.sign(
+            { id: result.id, role: result.role, type: "staff" },
+            JWT_SECRET,
+            { expiresIn: "1d" }
+        );
 
         res.cookie("token", token, {
             httpOnly: true,
@@ -144,7 +148,11 @@ async function loginStaff(req: Request, res: Response) {
         }
 
         // generate token
-        const token = jwt.sign({ id: existingStaffUser.id }, process.env.JWT_SECRET!, { expiresIn: "1d" });
+        const token = jwt.sign(
+            { id: existingStaffUser.id, role: existingStaffUser.role, type: "staff" },
+            JWT_SECRET,
+            { expiresIn: "1d" }
+        );
 
         // send token
         res.cookie("token", token, {
@@ -162,4 +170,14 @@ async function loginStaff(req: Request, res: Response) {
     }
 }
 
-export { registerCustomer, loginCustomer, registerStaff, loginStaff };
+async function logout(req: Request, res: Response){
+    try {
+        res.clearCookie("token");
+        res.json({ success: true, message: "Logged out successfully" });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, message: "Failed to logout" });
+    }
+}
+
+export { registerCustomer, loginCustomer, registerStaff, loginStaff, logout };
