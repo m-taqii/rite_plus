@@ -168,7 +168,7 @@ export default function CartDrawer() {
               </div>
               <div className="flex justify-between text-ink-secondary">
                 <span>30-Minute Delivery:</span>
-                <span className="font-semibold text-emerald-800">
+                <span className="font-semibold text-sky-800">
                   {deliveryFee === 0 ? 'FREE (Orders over Rs. 1,000)' : `Rs. ${deliveryFee}`}
                 </span>
               </div>
@@ -184,7 +184,7 @@ export default function CartDrawer() {
                   setIsCartOpen(false);
                   setIsPrescriptionModalOpen(true);
                 }}
-                className="mt-3 flex w-full items-center justify-center gap-1.5 border border-emerald-600 bg-emerald-50 px-3 py-2 text-xs font-bold text-emerald-800 hover:bg-emerald-100 transition-colors"
+                className="mt-3 flex w-full items-center justify-center gap-1.5 border border-sky-600 bg-sky-50 px-3 py-2 text-xs font-bold text-sky-800 hover:bg-sky-100 transition-colors"
               >
                 <CameraIcon className="h-4 w-4" />
                 <span>Attach Doctor&apos;s Prescription Slip</span>

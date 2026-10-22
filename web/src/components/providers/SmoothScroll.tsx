@@ -12,7 +12,19 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
-    // Initialize Lenis smooth scroll
+    // Disable smooth scroll hijacking on staff portal & dashboards
+    const pathname = window.location.pathname;
+    const isDashboard = pathname.startsWith('/staff') || pathname.startsWith('/dashboard');
+
+    if (isDashboard) {
+      if (lenisRef.current) {
+        lenisRef.current.destroy();
+        lenisRef.current = null;
+      }
+      return;
+    }
+
+    // Initialize Lenis smooth scroll for marketing pages
     const lenis = new Lenis({
       duration: 1.15,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),

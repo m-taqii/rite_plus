@@ -52,8 +52,8 @@ export default function PrescriptionModal() {
         <div className="flex items-start justify-between border-b border-border-hairline pb-4">
           <div>
             <div className="flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-emerald-600 animate-pulse" />
-              <span className="text-xs font-bold text-emerald-800 uppercase tracking-wide">
+              <span className="h-2 w-2 rounded-full bg-sky-600 animate-pulse" />
+              <span className="text-xs font-bold text-sky-800 uppercase tracking-wide">
                 Quick Pharmacist Review
               </span>
             </div>
@@ -75,7 +75,7 @@ export default function PrescriptionModal() {
 
         {isSuccess ? (
           <div className="py-8 text-center">
-            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-emerald-100 text-emerald-800">
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-sky-100 text-sky-800">
               <CheckIcon className="h-8 w-8" />
             </div>
             <h3 className="mt-4 font-sans text-xl font-bold text-ink">
@@ -86,17 +86,17 @@ export default function PrescriptionModal() {
               <br />
               We will call you at <strong className="text-ink">{phone || 'your phone number'}</strong> within 2 minutes to confirm your medicine order.
             </p>
-            <div className="mt-6 border border-emerald-200 bg-emerald-50 p-3 text-left text-xs text-emerald-900 space-y-1.5">
+            <div className="mt-6 border border-sky-200 bg-sky-50 p-3 text-left text-xs text-sky-900 space-y-1.5">
               <div className="flex items-center gap-1.5">
-                <CheckIcon className="h-3.5 w-3.5 text-emerald-700 shrink-0" />
+                <CheckIcon className="h-3.5 w-3.5 text-sky-700 shrink-0" />
                 <span>100% Genuine Medicines Guaranteed</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <CheckIcon className="h-3.5 w-3.5 text-emerald-700 shrink-0" />
+                <CheckIcon className="h-3.5 w-3.5 text-sky-700 shrink-0" />
                 <span>Chilled packaging for insulin & cold items</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <CheckIcon className="h-3.5 w-3.5 text-emerald-700 shrink-0" />
+                <CheckIcon className="h-3.5 w-3.5 text-sky-700 shrink-0" />
                 <span>Estimated delivery: 30 minutes after call confirmation</span>
               </div>
             </div>
@@ -110,7 +110,7 @@ export default function PrescriptionModal() {
         ) : (
           <form onSubmit={handleSubmit} className="mt-5 space-y-4">
             {/* File Upload Zone */}
-            <div className="border-2 border-dashed border-emerald-300 bg-emerald-50/50 p-6 text-center transition-colors hover:border-brand">
+            <div className="border-2 border-dashed border-sky-300 bg-sky-50/50 p-6 text-center transition-colors hover:border-brand">
               <input
                 type="file"
                 id="prescription-file"
@@ -122,7 +122,7 @@ export default function PrescriptionModal() {
                 htmlFor="prescription-file"
                 className="flex cursor-pointer flex-col items-center justify-center"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-brand">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-sky-100 text-brand">
                   <CameraIcon className="h-6 w-6" />
                 </div>
                 <span className="mt-3 font-sans text-sm font-bold text-ink">

@@ -108,6 +108,7 @@ export default function SignatureColdChain() {
                   src="/images/delivery_rider.jpg"
                   alt="Rite Plus Cold Chain Medicine Delivery Rider"
                   fill
+                  sizes="(max-width: 1024px) 100vw, 440px"
                   className="object-cover"
                 />
               </div>
@@ -170,7 +171,7 @@ export default function SignatureColdChain() {
           <div className="flex w-full flex-col justify-between border border-brand bg-brand p-8 text-white shadow-lg lg:w-95 lg:shrink-0">
             <div>
               <div className="flex items-center justify-between border-b border-white/20 pb-3 text-xs">
-                <span className="font-bold text-emerald-300">OUR PROMISE</span>
+                <span className="font-bold text-sky-300">OUR PROMISE</span>
                 <span className="text-white/60">RITE PLUS GUARANTEE</span>
               </div>
 
@@ -178,7 +179,7 @@ export default function SignatureColdChain() {
                 <div className="font-sans text-3xl font-black text-white">
                   100% Effective
                 </div>
-                <div className="mt-1 text-xs text-emerald-300 font-semibold">
+                <div className="mt-1 text-xs text-sky-300 font-semibold">
                   Never Damaged by Power Outages
                 </div>
               </div>
@@ -189,7 +190,7 @@ export default function SignatureColdChain() {
             </div>
 
             <div className="mt-8 border-t border-white/20 pt-4 flex items-center gap-1.5 text-xs text-white/80">
-              <ShieldCheckIcon className="h-4 w-4 text-emerald-400" />
+              <ShieldCheckIcon className="h-4 w-4 text-sky-400" />
               <span>DRAP Approved Cold-Chain Standard</span>
             </div>
           </div>

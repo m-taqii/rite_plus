@@ -3,28 +3,28 @@
 
 :root {
   /* Color Palette - Tokenized for easy client brand color retheming */
-  --bg-canvas:      #F8FAF9;
+  --bg-canvas:      #F8FAFC;
   --bg-surface:     #FFFFFF;
-  --bg-subtle:      #F0F4F2;
-  --bg-accent-soft: #E6F3EE;
+  --bg-subtle:      #F0F4F8;
+  --bg-accent-soft: #E0F2FE;
 
-  --ink-primary:   #111817;
-  --ink-secondary: #374151;
-  --ink-muted:     #6B7280;
+  --ink-primary:   #0F172A;
+  --ink-secondary: #334155;
+  --ink-muted:     #64748B;
 
-  --border-hairline: #E5E7EB;
-  --border-strong:   #1F2937;
+  --border-hairline: #E2E8F0;
+  --border-strong:   #1E293B;
 
-  /* Primary Brand Viridian */
-  --brand-primary:       #0A382C;
-  --brand-primary-hover: #06281F;
+  /* Primary Brand Medical Blue */
+  --brand-primary:       #0369A1;
+  --brand-primary-hover: #075985;
 
-  /* Cold-Chain Accent */
+  /* Vibrant Accent */
   --brand-accent:       #0284C7;
   --brand-accent-hover: #0369A1;
 
   /* Utility */
-  --brand-mint:  #059669;
+  --brand-mint:  #2563EB;
   --brand-amber: #D97706;
 
   /* Easings */
@@ -77,7 +77,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ::selection {
-  background-color: #0A382C;
+  background-color: #0284C7;
   color: #FFFFFF;
 }
 

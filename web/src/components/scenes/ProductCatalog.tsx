@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useMemo } from 'react';
-import { siteContent } from '@/content/site';
+import React, { useState, useEffect, useMemo } from 'react';
+import { siteContent, type Product } from '@/content/site';
 import { usePharmacy } from '@/context/PharmacyContext';
 import ProductCard from '@/components/ui/ProductCard';
 import { CameraIcon, ArrowRightIcon, CloseIcon, SearchIcon } from '@/components/ui/Icons';
+import { fetchProducts, fetchCategories } from '@/lib/api';
 
 export default function ProductCatalog() {
   const {
@@ -15,10 +16,65 @@ export default function ProductCatalog() {
     setIsPrescriptionModalOpen,
   } = usePharmacy();
 
+  const [dbProducts, setDbProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(true);
+    Promise.all([
+      fetchProducts({ limit: 100, activeOnly: true }),
+      fetchCategories().catch(() => []),
+    ])
+      .then(([res, cats]) => {
+        const catMap: Record<string, string> = {};
+        if (Array.isArray(cats)) {
+          cats.forEach((c) => {
+            catMap[c.id] = c.name;
+          });
+        }
+
+        if (res && res.items) {
+          const mapped: Product[] = res.items.map((apiProd) => ({
+            id: apiProd.id,
+            name: apiProd.name,
+            genericName: apiProd.genericName || 'Pharmaceutical Compound',
+            dosage: apiProd.strength || apiProd.form || 'Standard Dose',
+            manufacturer: apiProd.brand || 'Licensed Manufacturer',
+            category: (apiProd.categoryId && catMap[apiProd.categoryId]) || apiProd.description || 'Medicines',
+            price: typeof apiProd.price === 'number' ? apiProd.price : parseFloat(String(apiProd.price)) || 0,
+            originalPrice: undefined,
+            inStock: apiProd.stock > 0,
+            requiresPrescription: Boolean(apiProd.requiresRx),
+            isColdChain: Boolean(
+              apiProd.form?.toLowerCase().includes('injection') ||
+              apiProd.name.toLowerCase().includes('insulin') ||
+              apiProd.name.toLowerCase().includes('lantus')
+            ),
+            batchCode: apiProd.code,
+            rating: 4.9,
+            unit: apiProd.packSize || 'Pack',
+            description: apiProd.description || `${apiProd.name} regulated by DRAP Pakistan for quality and clinical purity.`,
+            usage: 'Take as directed by doctor.',
+            image: apiProd.image || '/images/panadol.jpg',
+          }));
+          setDbProducts(mapped);
+        } else {
+          setDbProducts(siteContent.catalog.products);
+        }
+      })
+      .catch((err) => {
+        console.warn('Could not load products from API:', err);
+        setDbProducts(siteContent.catalog.products);
+      })
+      .finally(() => setIsLoading(false));
+  }, []);
+
   const filteredProducts = useMemo(() => {
-    return siteContent.catalog.products.filter((product) => {
+    return dbProducts.filter((product) => {
       const matchesCategory =
-        activeCategory === 'all' || product.category === activeCategory;
+        activeCategory === 'all' ||
+        product.category.toLowerCase().includes(activeCategory.toLowerCase()) ||
+        activeCategory.toLowerCase().includes(product.category.toLowerCase());
 
       const q = searchQuery.toLowerCase().trim();
       const matchesSearch =
@@ -30,7 +86,7 @@ export default function ProductCatalog() {
 
       return matchesCategory && matchesSearch;
     });
-  }, [activeCategory, searchQuery]);
+  }, [dbProducts, activeCategory, searchQuery]);
 
   return (
     <section id="medicines" className="border-b border-border-hairline bg-canvas py-14 lg:py-20">
@@ -51,7 +107,7 @@ export default function ProductCatalog() {
 
           <button
             onClick={() => setIsPrescriptionModalOpen(true)}
-            className="flex items-center justify-center gap-2 border border-brand bg-emerald-50 px-5 py-2.5 text-xs font-bold text-brand hover:bg-brand hover:text-white transition-colors shrink-0"
+            className="flex items-center justify-center gap-2 border border-brand bg-sky-50 px-5 py-2.5 text-xs font-bold text-brand hover:bg-brand hover:text-white transition-colors shrink-0"
           >
             <CameraIcon className="h-4 w-4" />
             <span>{siteContent.catalog.prescriptionButton}</span>

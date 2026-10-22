@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import type { Product } from '@/content/site';
 import { usePharmacy } from '@/context/PharmacyContext';
 
@@ -32,14 +33,17 @@ export default function ProductCard({ product }: ProductCardProps) {
               Rx Required
             </span>
           ) : (
-            <span className="border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-emerald-800 font-medium">
+            <span className="border border-sky-200 bg-sky-50 px-2 py-0.5 text-sky-800 font-medium">
               Over The Counter
             </span>
           )}
         </div>
 
         {/* Product Packshot Image */}
-        <div className="relative mt-3 flex h-48 w-full items-center justify-center overflow-hidden border border-border-hairline bg-white p-2">
+        <Link
+          href={`/products/${product.id}`}
+          className="relative mt-3 h-48 w-full items-center justify-center overflow-hidden border border-border-hairline bg-white p-2 cursor-pointer block"
+        >
           <Image
             src={product.image}
             alt={product.name}
@@ -48,16 +52,18 @@ export default function ProductCard({ product }: ProductCardProps) {
             className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
             priority={false}
           />
-        </div>
+        </Link>
 
         {/* Product Details */}
         <div className="mt-4">
           <div className="text-xs font-medium text-ink-muted">
             {product.genericName}
           </div>
-          <h3 className="mt-1 font-sans text-base font-bold text-ink transition-colors group-hover:text-brand">
-            {product.name}
-          </h3>
+          <Link href={`/products/${product.id}`}>
+            <h3 className="mt-1 font-sans text-base font-bold text-ink transition-colors group-hover:text-brand cursor-pointer">
+              {product.name}
+            </h3>
+          </Link>
           <div className="mt-1 inline-block bg-subtle px-2 py-0.5 text-[11px] font-medium text-ink-muted">
             {product.dosage}
           </div>
@@ -81,7 +87,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               </span>
             )}
           </div>
-          <span className="text-[11px] font-medium text-emerald-700">
+          <span className="text-[11px] font-semibold text-sky-700">
             ✓ In Stock
           </span>
         </div>

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -68,15 +68,15 @@ export default function CustomerLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAF9] text-[#111817] flex flex-col justify-between selection:bg-[#0A382C] selection:text-white">
+    <div className="min-h-screen bg-[#F8FAF9] text-[#111817] flex flex-col justify-between selection:bg-[#0369A1] selection:text-white">
       {/* Top Brand Bar */}
       <header className="border-b border-[#E5E7EB] bg-white/90 backdrop-blur-md px-6 py-4 sticky top-0 z-30">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
           <Link href="/" className="flex items-center gap-2 group">
-            <span className="font-display text-2xl font-black uppercase tracking-tight text-[#0A382C] group-hover:text-[#06281F] transition-colors">
+            <span className="font-display text-2xl font-black uppercase tracking-tight text-[#0369A1] group-hover:text-[#075985] transition-colors">
               RITE PLUS
             </span>
-            <span className="rounded-xs bg-[#E6F3EE] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#0A382C] border border-[#0A382C]/20">
+            <span className="rounded-xs bg-[#E0F2FE] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#0369A1] border border-[#0369A1]/20">
               Rx Pharmacy
             </span>
           </Link>
@@ -84,13 +84,13 @@ export default function CustomerLoginPage() {
           <div className="flex items-center gap-4 text-xs font-semibold">
             <Link
               href="/"
-              className="text-[#6B7280] hover:text-[#0A382C] transition-colors hidden sm:inline-block"
+              className="text-[#6B7280] hover:text-[#0369A1] transition-colors hidden sm:inline-block"
             >
               ← Back to Store
             </Link>
             <Link
               href="/register"
-              className="rounded-xs bg-[#0A382C] px-4 py-2 text-white font-medium hover:bg-[#06281F] transition-all shadow-xs"
+              className="rounded-xs bg-[#0369A1] px-4 py-2 text-white font-medium hover:bg-[#075985] transition-all shadow-xs"
             >
               Create Account
             </Link>
@@ -102,10 +102,10 @@ export default function CustomerLoginPage() {
       <main className="flex-1 flex items-center justify-center p-3 sm:p-6 lg:p-10">
         <div className="w-full max-w-5xl bg-white border border-[#E5E7EB] shadow-2xl rounded-xs overflow-hidden grid grid-cols-1 lg:grid-cols-12">
           {/* Left Column: Solid Deep Viridian Green */}
-          <div className="hidden lg:flex lg:col-span-5 flex-col justify-between space-y-8 p-8 sm:p-10 bg-linear-to-br from-[#0A382C] to-[#124D3E] text-white relative">
+          <div className="hidden lg:flex lg:col-span-5 flex-col justify-between space-y-8 p-8 sm:p-10 bg-linear-to-br from-[#0369A1] to-[#0C4A6E] text-white relative">
             {/* Subtle ambient lighting */}
-            <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-emerald-400/15 blur-3xl pointer-events-none" />
-            <div className="absolute -left-20 -bottom-20 h-64 w-64 rounded-full bg-emerald-600/15 blur-3xl pointer-events-none" />
+            <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-sky-400/15 blur-3xl pointer-events-none" />
+            <div className="absolute -left-20 -bottom-20 h-64 w-64 rounded-full bg-blue-600/15 blur-3xl pointer-events-none" />
 
             <div className="relative z-10 space-y-3">
               
@@ -113,7 +113,7 @@ export default function CustomerLoginPage() {
               <h1 className="font-display text-3xl font-extrabold tracking-tight leading-snug">
                 Your Health, Genuine Medicines, Delivered in 30 Mins.
               </h1>
-              <p className="text-sm text-emerald-100/85 leading-relaxed">
+              <p className="text-sm text-sky-100/85 leading-relaxed">
                 Log in to re-order your regular prescriptions, track temperature-controlled delivery, and consult licensed pharmacists instantly.
               </p>
             </div>
@@ -121,7 +121,7 @@ export default function CustomerLoginPage() {
             {/* Feature Perks (Clean unboxed list) */}
             <div className="relative z-10 space-y-4">
               <div className="flex items-start gap-3">
-                <Truck className="h-4.5 w-4.5 text-emerald-300 shrink-0 mt-0.5" />
+                <Truck className="h-4.5 w-4.5 text-sky-300 shrink-0 mt-0.5" />
                 <div>
                   <h4 className="text-xs font-bold text-white">Express 30-Minute Dispatch</h4>
                   <p className="text-[11px] text-white/70">From our central Lahore dispatch hub</p>
@@ -159,7 +159,7 @@ export default function CustomerLoginPage() {
           <div className="lg:col-span-7 bg-white p-6 sm:p-10 flex flex-col justify-between">
             <div>
               <div className="mb-6">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#0A382C] mb-1.5 block">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#0369A1] mb-1.5 block">
                   Patient &amp; Customer Login
                 </span>
                 <h2 className="font-display text-2xl sm:text-3xl font-extrabold tracking-tight text-[#111817]">
@@ -209,7 +209,7 @@ export default function CustomerLoginPage() {
                       placeholder="e.g. 03001234567 or patient@email.com"
                       autoComplete="username"
                       required
-                      className="w-full rounded-xs border border-[#D1D5DB] bg-[#F8FAF9] py-3 pl-10 pr-4 text-sm text-[#111817] placeholder-[#9CA3AF] focus:border-[#0A382C] focus:bg-white focus:outline-hidden focus:ring-1 focus:ring-[#0A382C] transition-all"
+                      className="w-full rounded-xs border border-[#D1D5DB] bg-[#F8FAF9] py-3 pl-10 pr-4 text-sm text-[#111817] placeholder-[#9CA3AF] focus:border-[#0369A1] focus:bg-white focus:outline-hidden focus:ring-1 focus:ring-[#0369A1] transition-all"
                     />
                   </div>
                 </div>
@@ -226,7 +226,7 @@ export default function CustomerLoginPage() {
                         e.preventDefault();
                         alert('Please contact our pharmacy support at 042-111-748-375 or WhatsApp to reset your password.');
                       }}
-                      className="text-xs font-semibold text-[#0A382C] hover:underline"
+                      className="text-xs font-semibold text-[#0369A1] hover:underline"
                     >
                       Forgot Password?
                     </a>
@@ -242,7 +242,7 @@ export default function CustomerLoginPage() {
                       placeholder="Enter your account password"
                       autoComplete="current-password"
                       required
-                      className="w-full rounded-xs border border-[#D1D5DB] bg-[#F8FAF9] py-3 pl-10 pr-11 text-sm text-[#111817] placeholder-[#9CA3AF] focus:border-[#0A382C] focus:bg-white focus:outline-hidden focus:ring-1 focus:ring-[#0A382C] transition-all"
+                      className="w-full rounded-xs border border-[#D1D5DB] bg-[#F8FAF9] py-3 pl-10 pr-11 text-sm text-[#111817] placeholder-[#9CA3AF] focus:border-[#0369A1] focus:bg-white focus:outline-hidden focus:ring-1 focus:ring-[#0369A1] transition-all"
                     />
                     <button
                       type="button"
@@ -261,7 +261,7 @@ export default function CustomerLoginPage() {
                       type="checkbox"
                       checked={rememberMe}
                       onChange={(e) => setRememberMe(e.target.checked)}
-                      className="h-4 w-4 rounded-xs border-[#D1D5DB] text-[#0A382C] focus:ring-[#0A382C]"
+                      className="h-4 w-4 rounded-xs border-[#D1D5DB] text-[#0369A1] focus:ring-[#0369A1]"
                     />
                     <span className="text-xs text-[#4B5563]">Keep me signed in on this device</span>
                   </label>
@@ -271,7 +271,7 @@ export default function CustomerLoginPage() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full rounded-xs bg-[#0A382C] py-3.5 px-4 text-sm font-bold text-white shadow-md hover:bg-[#06281F] active:scale-[0.99] transition-all flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+                  className="w-full rounded-xs bg-[#0369A1] py-3.5 px-4 text-sm font-bold text-white shadow-md hover:bg-[#075985] active:scale-[0.99] transition-all flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
                 >
                   {isLoading ? (
                     <div className="flex items-center gap-2">
@@ -299,7 +299,7 @@ export default function CustomerLoginPage() {
               {/* Register Link Button */}
               <Link
                 href="/register"
-                className="w-full flex items-center justify-center gap-2 rounded-xs border border-[#0A382C]/30 bg-[#E6F3EE]/60 py-3 text-xs font-bold text-[#0A382C] hover:bg-[#E6F3EE] hover:border-[#0A382C] transition-all"
+                className="w-full flex items-center justify-center gap-2 rounded-xs border border-[#0369A1]/30 bg-[#E0F2FE]/60 py-3 text-xs font-bold text-[#0369A1] hover:bg-[#E0F2FE] hover:border-[#0369A1] transition-all"
               >
                 <span>Create New Customer Account</span>
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -310,7 +310,7 @@ export default function CustomerLoginPage() {
             <div className="mt-6 border-t border-[#E5E7EB] pt-4 text-center">
               <Link
                 href="/staff/login"
-                className="text-xs text-[#6B7280] hover:text-[#0A382C] font-semibold transition-colors inline-flex items-center gap-1.5"
+                className="text-xs text-[#6B7280] hover:text-[#0369A1] font-semibold transition-colors inline-flex items-center gap-1.5"
               >
                 <ShieldCheck className="h-3.5 w-3.5 text-emerald-700" />
                 <span>Pharmacy Staff & Pharmacist Portal Access →</span>

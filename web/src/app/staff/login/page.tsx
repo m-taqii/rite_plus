@@ -18,7 +18,7 @@ import {
   Stethoscope,
   Terminal,
 } from 'lucide-react';
-import { loginStaffApi } from '@/lib/auth';
+import { loginStaffApi, getCurrentStaff } from '@/lib/auth';
 
 export default function StaffLoginPage() {
   const router = useRouter();
@@ -30,6 +30,7 @@ export default function StaffLoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -53,9 +54,9 @@ export default function StaffLoginPage() {
 
       if (res.success) {
         setSuccessMsg(`Access Authorized. Welcome ${res.data?.name || 'Staff Member'} (${res.data?.role?.toUpperCase() || 'OPERATIONS'}).`);
-        setTimeout(() => {
-          router.push('/');
-        }, 1500);
+        const searchParams = new URLSearchParams(window.location.search);
+        const target = searchParams.get('redirect') || '/staff/dashboard';
+        router.push(target);
       } else {
         setErrorMsg(res.message || 'Access denied. Invalid staff email or password.');
       }
@@ -67,18 +68,18 @@ export default function StaffLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAF9] text-[#111817] flex flex-col justify-between selection:bg-[#0A382C] selection:text-white">
+    <div className="min-h-screen bg-[#F8FAF9] text-[#111817] flex flex-col justify-between selection:bg-[#0369A1] selection:text-white">
       {/* ── Top Portal Header ── */}
       <header className="border-b border-[#E5E7EB] bg-white/90 backdrop-blur-md px-6 py-4 sticky top-0 z-30">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
           <div className="flex items-center gap-3">
             <Link href="/" className="flex items-center gap-2 group">
-              <span className="font-display text-2xl font-black uppercase tracking-tight text-[#0A382C] group-hover:text-[#06281F] transition-colors">
+              <span className="font-display text-2xl font-black uppercase tracking-tight text-[#0369A1] group-hover:text-[#075985] transition-colors">
                 RITE PLUS
               </span>
             </Link>
             <div className="hidden sm:flex items-center gap-2.5 border-l border-[#E5E7EB] pl-3 text-xs">
-              <span className="font-bold text-[#0A382C] uppercase tracking-wider">
+              <span className="font-bold text-[#0369A1] uppercase tracking-wider">
                 Staff Operations Portal
               </span>              
             </div>
@@ -87,7 +88,7 @@ export default function StaffLoginPage() {
           <div className="flex items-center gap-4 text-xs font-semibold">
             <Link
               href="/"
-              className="text-[#6B7280] hover:text-[#0A382C] transition-colors flex items-center gap-1.5"
+              className="text-[#6B7280] hover:text-[#0369A1] transition-colors flex items-center gap-1.5"
             >
               <span>← Return to Storefront</span>
             </Link>
@@ -98,11 +99,11 @@ export default function StaffLoginPage() {
       {/* Main Secure Login Workspace */}
       <main className="flex-1 flex items-center justify-center p-3 sm:p-6 lg:p-10">
         <div className="w-full max-w-4xl bg-white border border-[#E5E7EB] shadow-2xl rounded-xs overflow-hidden grid grid-cols-1 lg:grid-cols-12">
-          {/* Left Column: Solid Deep Viridian Green */}
-          <div className="hidden lg:flex lg:col-span-5 flex-col justify-between space-y-6 bg-linear-to-br from-[#0A382C] to-[#124D3E] p-8 sm:p-10 text-white relative">
+          {/* Left Column: Solid Deep Blue */}
+          <div className="hidden lg:flex lg:col-span-5 flex-col justify-between space-y-6 bg-linear-to-br from-[#0369A1] to-[#0C4A6E] p-8 sm:p-10 text-white relative">
             {/* Subtle ambient lighting */}
-            <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-emerald-400/15 blur-3xl pointer-events-none" />
-            <div className="absolute -left-20 -bottom-20 h-64 w-64 rounded-full bg-emerald-600/15 blur-3xl pointer-events-none" />
+            <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-sky-400/15 blur-3xl pointer-events-none" />
+            <div className="absolute -left-20 -bottom-20 h-64 w-64 rounded-full bg-blue-600/15 blur-3xl pointer-events-none" />
 
             <div className="relative z-10 space-y-3">
               
@@ -110,19 +111,19 @@ export default function StaffLoginPage() {
               <h1 className="font-display text-2xl font-extrabold text-white leading-tight">
                 Pharmacy Clinical &amp; Fulfillment Control
               </h1>
-              <p className="text-xs text-emerald-100/85 leading-relaxed">
+              <p className="text-xs text-sky-100/85 leading-relaxed">
                 Single sign-on access point for Rite Plus certified clinical pharmacists, cold-chain handlers, inventory operators, and facility dispatchers.
               </p>
             </div>
 
             {/* Allowed Roles Badges (Clean list without bulky background boxes) */}
             <div className="relative z-10 space-y-3.5">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-300 block border-b border-white/10 pb-2">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-sky-300 block border-b border-white/10 pb-2">
                 Authorized Personnel Clearance
               </span>
 
               <div className="flex items-start gap-3">
-                <Stethoscope className="h-4 w-4 text-emerald-300 shrink-0 mt-0.5" />
+                <Stethoscope className="h-4 w-4 text-sky-300 shrink-0 mt-0.5" />
                 <div className="text-xs">
                   <span className="font-bold text-white block">Registered Pharmacist</span>
                   <p className="text-[11px] text-white/70">Prescription verification &amp; drug review</p>
@@ -130,7 +131,7 @@ export default function StaffLoginPage() {
               </div>
 
               <div className="flex items-start gap-3">
-                <Building2 className="h-4 w-4 text-emerald-300 shrink-0 mt-0.5" />
+                <Building2 className="h-4 w-4 text-sky-300 shrink-0 mt-0.5" />
                 <div className="text-xs">
                   <span className="font-bold text-white block">Operations &amp; Logistics</span>
                   <p className="text-[11px] text-white/70">Cold-chain dispatch &amp; 30-min rider assignment</p>
@@ -138,7 +139,7 @@ export default function StaffLoginPage() {
               </div>
 
               <div className="flex items-start gap-3">
-                <Terminal className="h-4 w-4 text-emerald-300 shrink-0 mt-0.5" />
+                <Terminal className="h-4 w-4 text-sky-300 shrink-0 mt-0.5" />
                 <div className="text-xs">
                   <span className="font-bold text-white block">System Administrator</span>
                   <p className="text-[11px] text-white/70">Facility controls &amp; audit trail logs</p>
@@ -159,8 +160,8 @@ export default function StaffLoginPage() {
           <div className="lg:col-span-7 bg-white p-6 sm:p-10 flex flex-col justify-between">
             <div>
               <div className="mb-6">
-                <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#0A382C] mb-1.5">
-                  <KeyRound className="h-3.5 w-3.5 text-[#0A382C]" />
+                <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#0369A1] mb-1.5">
+                  <KeyRound className="h-3.5 w-3.5 text-[#0369A1]" />
                   <span>Authorized Staff Only</span>
                 </div>
                 <h2 className="font-display text-2xl sm:text-3xl font-extrabold tracking-tight text-[#111817]">
@@ -184,11 +185,11 @@ export default function StaffLoginPage() {
 
               {/* Success Message */}
               {successMsg && (
-                <div className="mb-5 flex items-start gap-3 rounded-xs bg-emerald-50 p-4 text-xs text-emerald-800 border border-emerald-200 animate-in fade-in duration-200">
-                  <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600 mt-0.5" />
+                <div className="mb-5 flex items-start gap-3 rounded-xs bg-sky-50 p-4 text-xs text-sky-800 border border-sky-200 animate-in fade-in duration-200">
+                  <CheckCircle2 className="h-4 w-4 shrink-0 text-sky-600 mt-0.5" />
                   <div className="flex-1">
                     <p className="font-semibold">Session Verified</p>
-                    <p className="mt-0.5 text-emerald-700">{successMsg}</p>
+                    <p className="mt-0.5 text-sky-700">{successMsg}</p>
                   </div>
                 </div>
               )}
@@ -210,7 +211,7 @@ export default function StaffLoginPage() {
                       placeholder="e.g. pharmacist@riteplus.pk"
                       autoComplete="username"
                       required
-                      className="w-full rounded-xs border border-[#D1D5DB] bg-[#F8FAF9] py-3 pl-10 pr-4 text-sm text-[#111817] placeholder-[#9CA3AF] focus:border-[#0A382C] focus:bg-white focus:outline-hidden focus:ring-1 focus:ring-[#0A382C] transition-all"
+                      className="w-full rounded-xs border border-[#D1D5DB] bg-[#F8FAF9] py-3 pl-10 pr-4 text-sm text-[#111817] placeholder-[#9CA3AF] focus:border-[#0369A1] focus:bg-white focus:outline-hidden focus:ring-1 focus:ring-[#0369A1] transition-all"
                     />
                   </div>
                 </div>
@@ -234,7 +235,7 @@ export default function StaffLoginPage() {
                       placeholder="Enter assigned master password"
                       autoComplete="current-password"
                       required
-                      className="w-full rounded-xs border border-[#D1D5DB] bg-[#F8FAF9] py-3 pl-10 pr-11 text-sm text-[#111817] placeholder-[#9CA3AF] focus:border-[#0A382C] focus:bg-white focus:outline-hidden focus:ring-1 focus:ring-[#0A382C] transition-all"
+                      className="w-full rounded-xs border border-[#D1D5DB] bg-[#F8FAF9] py-3 pl-10 pr-11 text-sm text-[#111817] placeholder-[#9CA3AF] focus:border-[#0369A1] focus:bg-white focus:outline-hidden focus:ring-1 focus:ring-[#0369A1] transition-all"
                     />
                     <button
                       type="button"
@@ -250,7 +251,7 @@ export default function StaffLoginPage() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full rounded-xs bg-[#0A382C] py-3.5 px-4 text-sm font-bold text-white shadow-md hover:bg-[#06281F] active:scale-[0.99] transition-all flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed mt-2 cursor-pointer"
+                  className="w-full rounded-xs bg-[#0369A1] py-3.5 px-4 text-sm font-bold text-white shadow-md hover:bg-[#075985] active:scale-[0.99] transition-all flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed mt-2 cursor-pointer"
                 >
                   {isLoading ? (
                     <div className="flex items-center gap-2">
@@ -274,7 +275,7 @@ export default function StaffLoginPage() {
                 Authorized use only under DRAP License No. LHR/RET-2024-884. All login attempts, sessions, and dispensing records are timestamped and archived.
               </p>
               <div className="mt-3 flex items-center justify-center gap-4 text-xs font-semibold">
-                <Link href="/login" className="text-[#0A382C] hover:underline">
+                <Link href="/login" className="text-[#0369A1] hover:underline">
                   Switch to Patient / Customer Sign In →
                 </Link>
               </div>

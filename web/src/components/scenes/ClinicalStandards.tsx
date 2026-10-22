@@ -27,7 +27,7 @@ export default function ClinicalStandards() {
             <div className="grid grid-cols-1 md:grid-cols-12 bg-subtle p-4 text-xs font-bold text-ink">
               <div className="md:col-span-4 uppercase">Healthcare Standard</div>
               <div className="md:col-span-4 text-brand uppercase mt-2 md:mt-0 font-extrabold flex items-center gap-1.5">
-                <CheckIcon className="h-4 w-4 text-emerald-700" />
+                <CheckIcon className="h-4 w-4 text-sky-700" />
                 <span>Rite Plus Online Pharmacy</span>
               </div>
               <div className="md:col-span-4 text-ink-muted uppercase mt-2 md:mt-0 flex items-center gap-1.5">
@@ -46,7 +46,7 @@ export default function ClinicalStandards() {
                   {row.feature}
                 </div>
                 <div className="md:col-span-4 leading-relaxed text-brand font-medium mt-2 md:mt-0 pr-4">
-                  <span className="inline-flex items-center gap-1 text-emerald-700 font-bold mr-1">
+                  <span className="inline-flex items-center gap-1 text-sky-700 font-bold mr-1">
                     <CheckIcon className="h-3.5 w-3.5" />
                   </span>
                   {row.ritePlus}
@@ -63,10 +63,10 @@ export default function ClinicalStandards() {
         </div>
 
         {/* DRAP Certification Assurance */}
-        <div className="mt-10 border border-emerald-200 bg-emerald-50 p-6 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="mt-10 border border-sky-200 bg-sky-50 p-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <div className="flex h-12 w-12 shrink-0 items-center justify-center bg-brand text-white">
-              <ShieldCheckIcon className="h-6 w-6 text-emerald-300" />
+              <ShieldCheckIcon className="h-6 w-6 text-sky-300" />
             </div>
             <div>
               <h3 className="font-sans text-base font-bold text-ink">

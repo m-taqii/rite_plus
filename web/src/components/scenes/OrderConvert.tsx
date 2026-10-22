@@ -21,7 +21,7 @@ export default function OrderConvert() {
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12">
           {/* Left Text & Call to Action */}
           <div className="lg:col-span-7">
-            <span className="inline-flex items-center gap-1.5 border border-emerald-400/40 bg-emerald-950/60 px-3 py-1 text-xs font-bold text-emerald-300">
+            <span className="inline-flex items-center gap-1.5 border border-sky-400/40 bg-sky-950/60 px-3 py-1 text-xs font-bold text-sky-300">
               <BoltIcon className="h-3.5 w-3.5 text-amber-300" />
               <span>30-MINUTE DOORSTEP DELIVERY</span>
             </span>
@@ -37,7 +37,7 @@ export default function OrderConvert() {
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <button
                 onClick={() => setIsPrescriptionModalOpen(true)}
-                className="flex items-center gap-2 border border-white bg-white px-7 py-3.5 font-sans text-xs font-bold text-brand transition-all hover:bg-emerald-100 active:scale-[0.99]"
+                className="flex items-center gap-2 border border-white bg-white px-7 py-3.5 font-sans text-xs font-bold text-brand transition-all hover:bg-sky-100 active:scale-[0.99]"
               >
                 <CameraIcon className="h-4 w-4" />
                 <span>{siteContent.bannerCta.buttonUpload}</span>
@@ -48,7 +48,7 @@ export default function OrderConvert() {
                 href={`https://wa.me/923001234567?text=Hi%20Rite%20Plus,%20I%20need%20medicine%20delivery`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 border border-white/40 bg-emerald-800/40 px-6 py-3.5 font-sans text-xs font-bold text-white transition-colors hover:bg-emerald-800/70"
+                className="flex items-center gap-2 border border-white/40 bg-sky-800/40 px-6 py-3.5 font-sans text-xs font-bold text-white transition-colors hover:bg-sky-800/70"
               >
                 <MessageCircleIcon className="h-4 w-4" />
                 <span>Order on WhatsApp</span>
@@ -71,6 +71,7 @@ export default function OrderConvert() {
                 src="/images/delivery_rider.jpg"
                 alt="Rite Plus 30 Minute Medicine Delivery"
                 fill
+                sizes="(max-width: 1024px) 100vw, 40vw"
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
