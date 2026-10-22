@@ -22,11 +22,16 @@ const JWT_SECRET = process.env.JWT_SECRET!;
  * Authentication middleware: verifies JWT token from cookie or Authorization Bearer header.
  */
 export default function authenticate(req: Request, res: Response, next: NextFunction) {
-    let token: string | undefined = req.cookies?.token;
+    let token: string | undefined;
 
-    // Fallback: Check 'Authorization: Bearer <token>' header
-    if (!token && req.headers.authorization?.startsWith("Bearer ")) {
+    // 1. Explicit Authorization Bearer header from client
+    if (req.headers.authorization?.startsWith("Bearer ")) {
         token = req.headers.authorization.split(" ")[1];
+    }
+
+    // 2. Cookie fallback: check staff_token first (dedicated staff session), then generic token
+    if (!token) {
+        token = req.cookies?.staff_token || req.cookies?.token;
     }
 
     if (!token) {

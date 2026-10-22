@@ -2,7 +2,7 @@ import type { Request, Response } from "express";
 import { db } from '../../db/index.ts';
 import { customers } from '../../db/schema/customers.ts';
 import { staffUsers } from '../../db/schema/staff_user.ts';
-import { getCustomerByEmail, getCustomerByPhone, getStaffUserByEmail } from "./user.repo.ts";
+import { getCustomerByEmail, getCustomerByPhone, getStaffUserByEmail, getStaffUserById } from "./user.repo.ts";
 import * as bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -119,15 +119,21 @@ async function registerStaff(req: Request, res: Response){
             { expiresIn: "1d" }
         );
 
+        res.cookie("staff_token", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
+            maxAge: 24 * 60 * 60 * 1000,
+        });
         res.cookie("token", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "strict",
+            sameSite: "lax",
             maxAge: 24 * 60 * 60 * 1000,
         });
 
         const { passwordHash: _, ...safeUser } = result;
-        res.json({ success: true, message: "Staff User registered successfully", data: safeUser });
+        res.json({ success: true, message: "Staff User registered successfully", data: safeUser, token });
     } catch (err) {
         console.log(err);
         res.status(500).json({ success: false, message: "Internal server error" });
@@ -155,24 +161,38 @@ async function loginStaff(req: Request, res: Response) {
         );
 
         // send token
+        res.cookie("staff_token", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
+            maxAge: 24 * 60 * 60 * 1000,
+        });
         res.cookie("token", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "strict",
+            sameSite: "lax",
             maxAge: 24 * 60 * 60 * 1000,
         });
         
         const { passwordHash: _, ...safeUser } = existingStaffUser;
-        res.json({ success: true, message: "Staff User logged in successfully", data: safeUser });
+        res.json({ success: true, message: "Staff User logged in successfully", data: safeUser, token });
     } catch (err) {
         console.log(err);
         res.status(500).json({ success: false, message: "Internal server error" });
     }
 }
 
-async function logout(req: Request, res: Response){
+async function logout(req: Request, res: Response) {
     try {
+        const cookieOptions = {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax" as const,
+        };
+        res.clearCookie("token", cookieOptions);
+        res.clearCookie("staff_token", cookieOptions);
         res.clearCookie("token");
+        res.clearCookie("staff_token");
         res.json({ success: true, message: "Logged out successfully" });
     } catch (error) {
         console.log(error);
@@ -180,4 +200,21 @@ async function logout(req: Request, res: Response){
     }
 }
 
-export { registerCustomer, loginCustomer, registerStaff, loginStaff, logout };
+async function getStaffMe(req: Request, res: Response) {
+    try {
+        if (!req.user || !req.user.id) {
+            return res.status(401).json({ success: false, message: "Unauthorized. Staff session required." });
+        }
+        const staff = await getStaffUserById(req.user.id);
+        if (!staff) {
+            return res.status(401).json({ success: false, message: "Staff account not found or deactivated." });
+        }
+        const { passwordHash: _, ...safeUser } = staff;
+        return res.json({ success: true, data: safeUser });
+    } catch (err: any) {
+        console.error("[getStaffMe]", err);
+        return res.status(500).json({ success: false, message: "Internal server error" });
+    }
+}
+
+export { registerCustomer, loginCustomer, registerStaff, loginStaff, logout, getStaffMe };

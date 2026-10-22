@@ -6,8 +6,11 @@ const ts = (name: string) =>
 
 export const categories = pgTable("categories", {
   id: uuid("id").primaryKey().defaultRandom(),
-  slug: text("slug").notNull().unique(),        // e.g. "pain-relief"
+  slug: text("slug").notNull().unique(),        // e.g. "beauty-product", "skin-care"
   name: text("name").notNull(),               // user-facing name
+  parentId: uuid("parent_id").references((): any => categories.id, { onDelete: 'cascade' }),
+  description: text("description"),
+  image: text("image"),
   createdAt: ts("created_at"),
   updatedAt: ts("updated_at"),
 });
@@ -16,6 +19,7 @@ export const categories = pgTable("categories", {
 export const products = pgTable("products", {
   id: uuid("id").primaryKey().defaultRandom(),
   code: text("code").notNull().unique(),          // POS code, the import key
+  image: text("image"),
   name: text("name").notNull(),
   genericName: text("generic_name"),
   brand: text("brand"),
@@ -27,6 +31,7 @@ export const products = pgTable("products", {
   requiresRx: boolean("requires_rx").notNull().default(false),
   categoryId: uuid("category_id").references(() => categories.id),
   active: boolean("active").notNull().default(true),
+  description: text("description"),
   searchText: text("search_text").notNull().default(""),
   updatedAt: ts("updated_at"),
 }, (t) => [
